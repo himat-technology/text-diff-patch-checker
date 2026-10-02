@@ -1,0 +1,97 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply min-h-screen font-sans text-slate-900 antialiased;
+    background:
+      radial-gradient(1200px 500px at 0% -10%, rgb(224 231 255 / 0.9), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgb(250 232 255 / 0.8), transparent 55%),
+      radial-gradient(900px 600px at 50% 110%, rgb(204 251 241 / 0.6), transparent 60%),
+      #f8fafc;
+    background-attachment: fixed;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-indigo-600;
+  }
+}
+
+@layer components {
+  /* Shared metrics: editors and diff rows rely on an exact 20px line box. */
+  .code-text {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 20px;
+    tab-size: 4;
+    font-variant-ligatures: none;
+  }
+
+  .card {
+    @apply rounded-xl border border-slate-200/80 bg-white/95 shadow-sm shadow-indigo-100/60 backdrop-blur-sm;
+  }
+
+  /* Coloured accent strip along the top of a card. */
+  .card-accent {
+    @apply relative overflow-hidden;
+  }
+  .card-accent::before {
+    content: '';
+    @apply absolute inset-x-0 top-0 h-[3px] bg-linear-to-r from-indigo-500 via-fuchsia-500 to-amber-400;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 shadow-xs transition-colors hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-800 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md border border-transparent bg-linear-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm shadow-indigo-300 transition-[filter,box-shadow] hover:shadow-md hover:shadow-fuchsia-300 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .seg-group {
+    @apply inline-flex rounded-lg border border-indigo-100 bg-indigo-50/70 p-0.5;
+  }
+
+  .seg-item {
+    @apply cursor-pointer rounded-md px-2.5 py-1 text-xs font-medium text-slate-600 select-none hover:text-indigo-700;
+  }
+
+  .seg-item-active {
+    @apply bg-linear-to-r from-indigo-600 to-violet-600 text-white shadow-sm shadow-indigo-200 hover:text-white;
+  }
+
+  .control-label {
+    @apply text-[11px] font-semibold tracking-wide text-indigo-900/60 uppercase;
+  }
+
+  /* Inline word/character highlights: colour plus <del>/<ins> semantics and decoration. */
+  .seg-del {
+    @apply rounded-[2px] bg-rose-200/90 text-rose-950 line-through decoration-rose-500/60;
+  }
+
+  .seg-ins {
+    @apply rounded-[2px] bg-emerald-200/90 text-emerald-950 no-underline;
+    box-shadow: inset 0 -1px 0 0 rgb(5 150 105 / 0.7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
